@@ -38,3 +38,46 @@ class Company(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Course(models.Model):
+	name = models.CharField(max_length=30)
+
+	def __str__(self):
+		return self.name
+
+
+class Sport(models.Model):
+	name = models.CharField(max_length=30)
+
+	def __str__(self):
+		return self.name
+
+class Student(models.Model):
+	name = models.CharField(max_length=30)
+	courses = models.ManyToManyField(
+		Course,
+		blank=True,
+		through='StudentCourses'
+	)
+	sports = models.ManyToManyField(
+		Sport,
+		blank=True,
+		through='StudentSports'
+	)
+
+	def __str__(self):
+		return self.name
+
+class StudentCourses(models.Model):
+	student = models.ForeignKey(Student, on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.course.name
+
+class StudentSports(models.Model):
+	student = models.ForeignKey(Student, on_delete=models.CASCADE)
+	sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.sport.name
