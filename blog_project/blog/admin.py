@@ -24,12 +24,6 @@ admin.site.unregister(Group)
 class WebsimGroupAdmin(VersionAdmin, GroupAdmin):
     pass
 
-admin.site.unregister(User)
-
-@admin.register(User)
-class MyUserAdmin(VersionAdmin):
-    pass
-
 class StudentCourseInline(admin.TabularInline):
     model = StudentCourses
     extra = 1
